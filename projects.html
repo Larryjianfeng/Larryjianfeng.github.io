@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : SimpleWork 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20140225
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link href="default2.css" rel="stylesheet" type="text/css" media="all" />
+<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="page" class="container">
+		<div id="content_2">
+			<div class="title">
+				<h2>PGA data analysis</h2>
+				<span class="byline">With professor Lucius J. Riccio</span> </div>
+			<p><img src="images/proj1.jpg" alt="" class="image image-full" /> 
+				 <figcaption> <center><i>Picture for Tiger Woods, the performance comparison in different year</i> </center></figcaption>
+			</p>
+			<p>The key question in PGA is to predict the top 1, top 10 and cut in half in the next PGA tour. And what factor mostly effect a player's performance ?</p>
+			<p>According to our feature selection, yardage, the wind and par is the three main factors. However, wind scale is hard to measure and predict. Also, yardage accounts for more that 90% affection to the performance of players. So our core problem is model each player's performance on each yardage. That obviously, requires a lot of data. Thus, we collect all the data from 1984 to now to make a comprehensive measurement of each player's performance. </p> 
+			<p>Tiger  Woods's fall these years: The picture shown above is the comparison of Tiger Woods' average score got on each yardage (the less, the better) on different year. We can see that on each yardage, Tiger Woods play more shots these years, which means he performs worse. </p>
+            <p>Also, we can compare performance of different players, also make a simple linear regression line of them, see the picture below</p>
+			<p><img src="images/proj3.JPG" alt="" class="image image-full" /> 
+				 <figcaption> <center><i>Picture for comparison of different players on different yardage</i> </center></figcaption>
+			</p> 
+			<p><img src="images/proj2.JPG" alt="" class="image image-full" /> 
+				 <figcaption> <center><i>Picture for Regression on the plot</i> </center></figcaption>
+			</p> 
+			<p>However, the actual prediction process is a little bit more complicated than that. We use non-parametric regression in Python for faster processing and simulation. We simulated 10000 times of the next game and made ranking according to that.</p>
+
+			<p> Here we face another problem, considering the changing of player's states, how to choose the "right" data ?</p>
+			<p>To solve that problem, we use multi-dimensional time series to model the change of player's states. Also, according to our validation result, recent two years' data is most accurate for prediction. </p>
+			<p>If you are interested in golf, don't hesitate to load this <a href = 'https://larryjianfeng.shinyapps.io/golf'>website </a>, pick two golfers, and see if one can beat another on each yardage ! The following picture is a glance at this webpage designed and coded by me. </p>
+			<p><img src="images/proj4.JPG" alt="" class="image image-full" /> 
+				<figcaption> <center><i>Picture for showing the online analysis website of golfers</i> </center></figcaption>
+			</p>
+
+		</div>
+	</div>
+
+
+<div id="wrapper">
+	<div id="page" class="container">
+		<div id="content_2">
+			<div class="title">
+				<h2>Online Stepwise regression</h2>
+				<span class="byline">With professor Zhen Tian, Columbia University</span> 
+			</div>
+			<p> Linear regression is probably the most used statistical tools in the world. Morever, step-wise linear regression is a more useful tools than multi-variable regression. Step-wise linear regression can be used to automatically eliminate uncorrelated variables. Moreover, step-wise regression can be used for feature selection in machine learning. </p>
+			<p> The problem is, for many people who have no knowledge of R or other programming language, how to do that ?</p>
+			<p> This <a href = 'https://larryjianfeng.shinyapps.io/stepwise_OLS/'>website </a>can easily solve your trouble. Because you only need to load in the data and click on "submit", the regression result will be shown on the page, like this:</p>
+			<p><img src="images/pro1.JPG" alt="" class="image image-full" /> </p>
+			<p><img src="images/pro2.JPG" alt="" class="image image-full" /> </p>
+			<p><img src="images/pro3.JPG" alt="" class="image image-full" /> </p>
+			<p> However, there is still some restrictions, your data show be numeric, the first row should be the column names.</p>
+ 		</div>
+	</div>
+</div>
+</body>

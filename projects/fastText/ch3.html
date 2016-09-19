@@ -1,0 +1,52 @@
+<html>
+	<head> 
+	<meta charset = 'utf-8'>
+	<title> The outline: Introduction to the question segmentation using fastText.</title>
+	<meta name ='LarrryYan' content = 'From IQIYI'>
+	<link href='./utilities/style.css', rel='stylesheet'>
+	</head>
+	
+	<body>
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='indextable'>
+					<ul class='index-chapter'>
+					<li><a href='./ch1.html'>Introduction</a></li>
+					<li><a href='./ch2.html' >prepare data</a></li>				
+					<li><a href='./ch3.html'class='current-chapter'>LSH: regenerate question</a></li>
+					<li><a href='./ch4.html'>FastText classification</a></li>
+					<li><a href="./ch5.html">Bagging and Boosting</a></li>
+				</ul>				
+				</div>
+			</div>
+
+			<div class='article'>
+				<h1>MinBash-LSH: 数据匹配</h1>
+				<h2>目的</h2>
+				<p>前面已经提到，因为手工筛选的数据量有限，而且词汇覆盖面积不够，无法确保遇到新词汇时能有效的达到不错的分类效果，因此使用LSH扩展训练数据集。</p>
+				<h2>方法</h2>
+				<p>使用python的datasketch包</p>
+				<pre class='codelist-code'>
+					from datasketch import MinHash, MinHashLSH
+					lsh = MinHashLSH(threshold = 0.7, num_perm = 100)
+				</pre>
+				<p>MinHashLSH使用jaccard距离计算两个句子之间的相似度，上面的代码初始化一个MinHashLSH类，设定jaccard distance的threshold为0.7，并初始化hashing桶的数量为100.</p>
+				<pre class='codelist-code'>
+					mlist = Minhash(num_perm = 100)
+					for word in sentence:
+					    mlist.update(word)
+					lsh.insert(sentence_id,mlist)</pre>
+				<p>上面的代码为往minbashlsh里面插入数据的操作，对于每一个句子先初始化一个minhash类，然后把这个句子里面的每个单词插入到这个类mlist，最后将mlist放入lsh里面。注意到sentence_id,在查询的时候会返回这个id，有点类似于primary key的概念。</p>
+				
+				<p>查询的操作很简单：</p>
+				<pre class='codelist-code'>
+				m_list = Minhash(num_perm = 100)
+				for word in sentence_to_query：
+				    m_list.update(word)
+				lsh.query(m_list)</pre>
+				<p>查询的过程会返回所以jaccard相似度大于threshold的sentence_id.</p>
+			</div>
+		</div>
+	</body>
+
+</html>

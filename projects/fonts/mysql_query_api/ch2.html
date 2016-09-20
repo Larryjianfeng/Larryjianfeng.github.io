@@ -1,0 +1,46 @@
+<html>
+	<head> 
+	<meta charset = 'utf-8'>
+	<title> The outline: Introduction to the question segmentation using fastText.</title>
+	<meta name ='LarrryYan' content = 'From IQIYI'>
+	<link href='./utilities/style.css', rel='stylesheet'>
+	</head>
+	
+	<body>
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='indextable'>
+					<ul class='index-chapter'>
+					<li><a href='./ch1.html' >Tornado_api</a></li>
+					<li><a href='./ch2.html' class='current-chapter'>php_api</a></li>					
+				</ul>				
+				</div>
+			</div>
+
+			<div class='article'>
+				<h1> Simple php api</h1>
+				<p> 2.1: php语法也很简单，由于使用get的方式，因此直接用_GET['argument']来提取参数</p>
+				<p>	2.2：php的话连接mysql用mysqli_connect(ip, user, passwd, db-name)，然后就可以query了
+					<pre class='codelist-code'>
+$conn = mysqli_connect('xx.xx.xx.xx', 'cindy', 'xxx','test') or die('error with mysql databases');
+$result = mysqli_query($conn, $query);
+</pre></p>
+				<p>2.3: $result返回的是一个resource，可以用$row = mysqli_fetch_assoc($result)来逐行提取数据，</p>
+				<pre class='codelist-code'>
+$data = [];
+while ($row = mysqli_fetch_assoc($result)) {
+	$line = array();
+	$line['id'] = $row['id'];
+	$line['user'] = $row['user'];
+	array_push($data, $line);
+}				</pre>
+				<p>注意到array_push()类似于python里面的append方法。 </p>
+				<p>	2.5：用json_encode(array_list)的方法来返回json对象，但是注意到貌似这个方法自行将utf8转换成了unicode，这里走了不少弯路，甚至用show full columns from table_name来看mysql里面的table的编码，正确的使用方法应该是:echo json_encode(array_list,JSON_UNESCAPED_UNICODE);</p>
+				<p>2.6: 注意到php里面的catch error的机制，以及(int)函数会把char转换成0，非常奇怪。 </p>
+				<hr>
+				<a href="../index1.html">return to projects list</a>
+			</div>
+		</div>
+	</body>
+
+</html>

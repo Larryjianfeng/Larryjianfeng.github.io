@@ -1,0 +1,67 @@
+<html>
+	<head> 
+	<meta charset = 'utf-8'>
+	<title> Two api for make the query from mysql databse. </title>
+	<meta name ='LarrryYan' content = 'From IQIYI'>
+	<link href='./utilities/style.css', rel='stylesheet'>
+	</head>
+	
+	<body>
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='indextable'>
+					<ul class='index-chapter'>
+					<li><a href='./ch1.html' class='current-chapter'>Tornado_api</a></li>
+					<li><a href='./ch2.html'>php_api</a></li>				
+				</ul>				
+				</div>
+			</div>
+
+			<div class='article'>
+				<h1>Introduction</h1>
+				<p>First time experience in constructing web api. Tornado is a python based ligh-weight tool, with self-supported httpservice, while php api is based on nginx.</p>
+				<h3>1.1 task segmentation</h3>
+				<p> tornado的应用分三个部分，参数解析，后端数据处理，返回，还要加上一个错误处理机制。</p>
+				<p>参数解析，一般自带的RequestHandler.get_query_argument,RequestHandler.get_body_argument来解析query和body的参数，我选择的是直接用self.request.body来得到查询数据自行解析.</p>
+				<pre class='codelist-code'>
+try:
+	params = {line.split('=')[0]:line.split('=')[1] for line in self.request.body.split('&')}
+except: 
+	params = {}	</pre>
+
+				<p>数据处理结构</p>
+				<pre class='codelist-code'>
+if __name__ == '__main__':
+	tornado.options.parse_command_line()
+	app = tornado.web.Application([(r'/', MainHandler),])
+	app.listen(8800)
+	tornado.ioloop.IOLoop.instance().start()
+</pre>	
+				<h3>1.2 how to return json</h3>
+				<p>一般返回json数据，可以用json包，json.dump(data)或者用tornado.escape.json_encode(data)来编码，优先选择前者，因为可以用json.dumps(respon,ensure_ascii=False)保证返回的utf-8编码的数据</p>
+
+				<h3>1.3 how to connect to mysql</h3>
+				<p>db = MySQLdb.connect(host ='', user = '', passwd = '', db = '') ==> cursor = db.cursor() ==> cursor.execute('') ==> db.commit() ==> cursor.fetchone()或者是cursor.fetchall(), 详情见<a href="http://www.tutorialspoint.com/python/python_database_access.htm">http://www.tutorialspoint.com/python/python_database_access.htm</a></p>
+
+				<h3>1.4 error handler</h3>
+				<p>程序继承的tornado.web.RequestHandler这个类自带write_error函数，可以自己写一个write_error函数来覆盖此函数</p>
+				<pre class='codelist-code'>
+def write_error(self, status_code, **kwargs):
+	self.write(json.dumps({'code':status_code, 'message': self._reason, 'count':0}))
+</pre>
+
+				<h3>1.5 log hander</h3>
+				<p>如何储存log信息:<a href="http://python.jobbole.com/81521/">http://python.jobbole.com/81521/</a>
+					<pre class='codelist-code'>
+import logging
+logging.basicConfig(filename = '', level=logging.INFO)
+				</pre>
+				即可将INFO级别的logging写入filename里面，其他级别的level见链接。</p>
+				<hr>
+				<a href="../index1.html">return to projects list</a>
+
+			</div>
+		</div>
+	</body>
+
+</html>

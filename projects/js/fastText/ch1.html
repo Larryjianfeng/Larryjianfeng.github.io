@@ -1,0 +1,39 @@
+<html>
+	<head> 
+	<meta charset = 'utf-8'>
+	<title> The outline: Introduction to the question segmentation using fastText.</title>
+	<meta name ='LarrryYan' content = 'From IQIYI'>
+	<link href='./utilities/style.css', rel='stylesheet'>
+	</head>
+	
+	<body>
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='indextable'>
+					<ul class='index-chapter'>
+					<li><a href='./ch1.html' class='current-chapter'>Introduction</a></li>
+					<li><a href='./ch2.html'>prepare data</a></li>				
+					<li><a href='./ch3.html'>LSH: regenerate question</a></li>
+					<li><a href='./ch4.html'>FastText classification</a></li>
+					<li><a href="./ch5.html">Bagging and Boosting</a></li>
+				</ul>				
+				</div>
+			</div>
+
+			<div class='article'>
+				<h1>purpose目的</h1>
+				<p>做中间问句的二分类，进行多轮对话里面的有效中间问句和无效中间问句的二分类，为将来的新增知识点的提取和多轮对话的模型做准备。</p>
+			
+
+				<h1>method方法</h1>
+				<p>主体使用fastText做二分类，fastText为facebook开发的一种类似于word2vector的神经网络训练方法。github连接：<a href="https://github.com/facebookresearch/fastText">https://github.com/facebookresearch/fastText</a> 
+				<p>训练语料为手工标注的数据，先标注1200条句子，有效中间问句标为1，无效中间问句标为0，然后使用LSH搜寻类似的训练语料，将句子库增大到4000，词频覆盖率增大到95%。</p>
+				<p>也尝试用bagging和boosting等ensemble的方法来提高模型的预测结果，但是效果不佳，推断fastText本身就是一种复杂全面的分类器，不适合用ensemble的方法。</p>
+				<hr>
+				<a href="../index1.html">return to projects list</a>
+
+			</div>
+		</div>
+	</body>
+
+</html>

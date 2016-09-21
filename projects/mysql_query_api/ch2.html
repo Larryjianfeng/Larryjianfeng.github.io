@@ -38,7 +38,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 				<p>	2.5：用json_encode(array_list)的方法来返回json对象，但是注意到貌似这个方法自行将utf8转换成了unicode，这里走了不少弯路，甚至用show full columns from table_name来看mysql里面的table的编码，正确的使用方法应该是:echo json_encode(array_list,JSON_UNESCAPED_UNICODE);</p>
 				<p>2.6: 注意到php里面的catch error的机制，以及(int)函数会把char转换成0，非常奇怪。 </p>
 				<hr>
-				<a href="../projects_list.html">return to projects list</a>
+				<a href="../index1.html">return to projects list</a>
 			</div>
 		</div>
 	</body>

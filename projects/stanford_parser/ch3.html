@@ -1,0 +1,59 @@
+<html>
+	<head> 
+	<meta charset = 'utf-8'>
+	<title> The outline: Introduction to the question segmentation using fastText.</title>
+	<meta name ='LarrryYan' content = 'From IQIYI'>
+	<link href='./utilities/style.css', rel='stylesheet'>
+	</head>
+	
+	<body>
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='indextable'>
+					<ul class='index-chapter'>
+					<li><a href='./ch1.html'>Introduction</a></li>		
+					<li><a href='./ch3.html'class='current-chapter'>stanford parser</a></li>
+					<li><a href='./ch4.html'>generate grammer tree</a></li>
+					<li><a href="./ch5.html">tree similarity</a></li>
+				</ul>				
+				</div>
+			</div>
+
+			<div class='article'>
+				<h1> stanford parser</h1>
+				<p>不太懂java的话不太想推荐stanford parser，说明文档很少，但气的是基本上没有其他的grammar parser的工具，没得选</p>
+
+				<p>来看看输出的结果</p>
+	<pre class='codelist-code'>
+(ROOT
+  (CP
+    (IP
+      (NP (NN 请问))
+      (VP (VC 是)
+        (NP
+          (CP
+            (IP
+              (VP (VV 使用)))
+            (DEC 的))
+          (NP (NN 微信)
+            (CC 还是)
+            (NN 支付宝)))))
+    (SP 呢) (PU ？)))
+
+nsubj(支付宝-7, 请问-1)
+cop(支付宝-7, 是-2)
+relcl(支付宝-7, 使用-3)
+mark(使用-3, 的-4)
+conj(支付宝-7, 微信-5)
+cc(支付宝-7, 还是-6)
+root(ROOT-0, 支付宝-7)
+dep(支付宝-7, 呢-8)
+</pre>
+
+<p>就酱紫，输出的全是文本文档。CP， IP， NP， NN这些都是短语的语法性质，nsubj是主谓关系（？），先不管这些，现在的问题是如何用python把这些弄成tree结构</p>
+				<a href="../index1.html">return to projects list</a>
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,81 @@
+<html>
+	<head> 
+	<meta charset = 'utf-8'>
+	<title> The outline: Introduction to the question segmentation using fastText.</title>
+	<meta name ='LarrryYan' content = 'From IQIYI'>
+	<link href='./utilities/style.css', rel='stylesheet'>
+	</head>
+	
+	<body>
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='indextable'>
+					<ul class='index-chapter'>
+					<li><a href='./ch1.html'>Introduction</a></li>	
+					<li><a href='./ch3.html'>stanford parser</a></li>
+					<li><a href='./ch4.html'>generate grammer tree</a></li>
+					<li><a href="./ch5.html"  class='current-chapter'>tree similarity</a></li>
+				</ul>				
+				</div>
+			</div>
+
+			<div class='article'>
+				<h1> tree similarity </h1>
+
+				<p>这个比较有意思，因为基本上找不到tree clustering的工具，所以只能自己写，首先得量化两棵树之间的距离，比较蛋疼，我自定义了一种加权衰减的方法，见下面</p>
+
+					<pre class='codelist-code'>
+def lcs(str1, str2):
+  if len(str1) == 0 or len(str2) == 0:
+    return []
+  if str1[-1] == str2[-1]:
+    return lcs(str1[:-1], str2[:-1]) + [str1[-1]]
+  t1 = lcs(str1[:-1], str2)
+  t2 = lcs(str1, str2[:-1])
+  if len(t1) > len(t2):
+    return t1
+  else:
+    return t2
+# list_2 is the sublist of list_1
+def indices(list_1, list_2, re = [], i = 0):
+	if len(list_2) == 0:
+		return re
+	else:	
+		if list_1[0] == list_2[0]:
+			re.append(i)
+			i += 1 
+			return indices(list_1[1:],list_2[1:], re, i)
+		else:
+			i += 1 
+			return indices(list_1[1:], list_2, re, i)
+
+
+def tree_simi(node_a, node_b):
+	if node_a.proper == node_b.proper:
+		child_a, child_b = node_a.child, node_b.child
+		if child_a == None or child_b == None:
+			return 0
+		child_a_proper, child_b_proper = [i.proper for i in child_a], [i.proper for i in child_b]
+		com = lcs(child_a_proper, child_b_proper)
+		child_a_ch = [child_a[k] for k in indices(child_a_proper, com, re = [], i = 0)]
+		child_b_ch = [child_b[k] for k in indices(child_b_proper, com, re = [], i = 0)]
+		simis = 0 
+		for i in range(len(child_a_ch)):
+			simis += tree_simi(child_a_ch[i], child_b_ch[i])/len(child_a_ch)
+		return simis*0.5 + 0.5*len(com)/(len(child_a) + len(child_b) - len(com))
+
+	else:
+		return 0 
+
+
+
+					</pre>
+
+				<p>递归计算距离，我不禁被我自己的机智折服。</p>
+				<hr>
+				<a href="../index1.html">return to projects list</a>
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,41 @@
+<html>
+	<head> 
+	<meta charset = 'utf-8'>
+	<title> The outline: Introduction to the question segmentation using fastText.</title>
+	<meta name ='LarrryYan' content = 'From IQIYI'>
+	<link href='./utilities/style.css', rel='stylesheet'>
+	</head>
+	
+	<body>
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='indextable'>
+					<ul class='index-chapter'>
+					<li><a href='./ch1.html' class='current-chapter'>Introduction</a></li>
+					<li><a href='./ch3.html'>stanford parser</a></li>
+					<li><a href='./ch4.html'>generate grammer tree</a></li>
+					<li><a href="./ch5.html">tree similarity</a></li>
+				</ul>				
+				</div>
+			</div>
+
+			<div class='article'>
+				<h1>purpose目的</h1>
+				<p>手头上有一大堆句子，大概1700k+, 目的是提取句子中的某些结构化信息，比如'请问您的男朋友叫什么名字' ==> '男朋友，名字', '请问您的狗叫什么名字' ==> '狗，名字'。</p>
+			
+
+				<h1>method方法</h1>
+				<p>因为是中文句子，所以先分词，然后主体使用stanford parser提取语法. <a href="http://nlp.stanford.edu/software/lex-parser.shtml">http://nlp.stanford.edu/software/lex-parser.shtml</a>
+				<p>这里它提供的是一个java包，但是nltk有集成封装这个java包，坑爹的事，nltk里面有些中文编码的问题没有结局，比如parser.parse_sents([u'核实'.split(' ')])就会报错，简直傻逼。</p>
+				<p>因此只能在linux下直接用sh命令调用，代码如下：sh lexparser.sh input_data > output_data, 注意到如果用中文的话，必须下载那个中文模型的文件，并且改一下里面那个模型路径到edu/stanford/nlp/models/lexparser/chineseFactored.ser.gz</p>
+
+				<p>最后根据输出的文件提取树的结构数据，我用python自己提取的，代码可以看看。</p>
+
+				<hr>
+				<a href="../index1.html">return to projects list</a>
+
+			</div>
+		</div>
+	</body>
+
+</html>
